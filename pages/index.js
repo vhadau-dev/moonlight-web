@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 
-// Disable SSR for homepage
+// Load Homepage component only on client side to avoid SSR issues
 const Homepage = dynamic(() => import("../components/Homepage"), { ssr: false });
 
 export default function Home() {

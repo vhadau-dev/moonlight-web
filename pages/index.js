@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function Home() {
-  // Prevent SSR crash
-  if (typeof window === "undefined") return null;
+  if (typeof window === "undefined") return null; // Prevent SSR crash
 
   const { data: session } = useSession();
   const [userData, setUserData] = useState(null);
@@ -14,7 +13,7 @@ export default function Home() {
       axios
         .get(`https://moonlight-api-4s9a.onrender.com/user/${session.user.id}`)
         .then((res) => setUserData(res.data))
-        .catch((err) => console.log(err));
+        .catch(console.log);
     }
   }, [session]);
 

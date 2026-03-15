@@ -1,8 +1,11 @@
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSession, signIn, signOut } from "next-auth/react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { useState, useEffect } from "react";
 
 export default function Home() {
+  // Prevent SSR crash
+  if (typeof window === "undefined") return null;
+
   const { data: session } = useSession();
   const [userData, setUserData] = useState(null);
 
@@ -23,9 +26,9 @@ export default function Home() {
       ) : (
         <div>
           <p>Welcome, {session.user.name}</p>
-          <p>Balance: {userData?.balance || "Loading..."}</p>
-          <p>Inventory: {userData?.inventory?.join(", ") || "Loading..."}</p>
-          <p>Pets: {userData?.pets?.join(", ") || "Loading..."}</p>
+          <p>Balance: {userData?.balance ?? "Loading..."}</p>
+          <p>Inventory: {userData?.inventory?.join(", ") ?? "Loading..."}</p>
+          <p>Pets: {userData?.pets?.join(", ") ?? "Loading..."}</p>
           <button onClick={() => signOut()}>Logout</button>
         </div>
       )}

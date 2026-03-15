@@ -10,8 +10,8 @@ export default NextAuth({
     }),
   ],
   callbacks: {
-    async session({ session, token, user }) {
-      session.user.id = token.sub;
+    async session({ session, token }) {
+      session.user.id = token.sub; // add Discord user ID to session
       return session;
     },
   },
